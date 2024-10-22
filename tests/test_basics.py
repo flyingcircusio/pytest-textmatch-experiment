@@ -11,6 +11,7 @@ GENERIC_HEADER = [
     "",
 ]
 
+
 def test_tab_replace() -> None:
     from pytest_patterns.plugin import tab_replace
 
@@ -44,7 +45,7 @@ def test_unexpected_lines_fail(patterns: PatternsLib) -> None:
     audit = patterns.nothing._audit("This is an unexpected line")
     assert list(audit.report()) == [
         *GENERIC_HEADER,
-        "🟡                 | This is an unexpected line",
+        "🟡                 | This␠is␠an␠unexpected␠line",
     ]
     assert not audit.is_ok()
 
@@ -169,12 +170,12 @@ This is an expected line
         "",
         "These are the unmatched expected lines: ",
         "",
-        "🔴 in_order        | This is also an expected line",
+        "🔴 in_order        | This␠is␠also␠an␠expected␠line",
     ]
     assert not audit.is_ok()
 
 
-def test_incorrectly_ordered_lines_fail(patterns):
+def test_incorrectly_ordered_lines_fail(patterns: PatternsLib) -> None:
     pattern = patterns.in_order
     pattern.in_order(
         """
@@ -197,20 +198,21 @@ Line 1
     )
     assert list(audit.report()) == [
         *GENERIC_HEADER,
-        "🟡                 | Line 5",
-        "🟡                 | Line 4",
-        "🟡                 | Line 3",
-        "🟡                 | Line 2",
+        "🟡                 | Line␠5",
+        "🟡                 | Line␠4",
+        "🟡                 | Line␠3",
+        "🟡                 | Line␠2",
         "🟢 in_order        | Line 1",
         "",
         "These are the unmatched expected lines: ",
         "",
-        "🔴 in_order        | Line 2",
-        "🔴 in_order        | Line 3",
-        "🔴 in_order        | Line 4",
-        "🔴 in_order        | Line 5",
+        "🔴 in_order        | Line␠2",
+        "🔴 in_order        | Line␠3",
+        "🔴 in_order        | Line␠4",
+        "🔴 in_order        | Line␠5",
     ]
     assert not audit.is_ok()
+
 
 def test_refused_lines_fail(patterns: PatternsLib) -> None:
     pattern = patterns.refused
@@ -219,11 +221,11 @@ def test_refused_lines_fail(patterns: PatternsLib) -> None:
     audit = pattern._audit("This is a refused line")
     assert list(audit.report()) == [
         *GENERIC_HEADER,
-        "🔴 refused         | This is a refused line",
+        "🔴 refused         | This␠is␠a␠refused␠line",
         "",
         "These are the matched refused lines: ",
         "",
-        "🔴 refused         | This is a refused line",
+        "🔴 refused         | This␠is␠a␠refused␠line",
     ]
     assert not audit.is_ok()
 
@@ -280,18 +282,18 @@ asdf
         *GENERIC_HEADER,
         "⚪️ focus           | asdf",
         "🟢 focus           | These lines",
-        "🔴 focus           | are broken",
-        "🟡                 | need to match",
+        "🔴 focus           | are␠broken",
+        "🟡                 | need␠to␠match",
         "⚪️ focus           | asdf",
-        "🟡                 | without being",
-        "🟡                 | because there is stuff in between",
+        "🟡                 | without␠being",
+        "🟡                 | because␠there␠is␠stuff␠in␠between",
         "🟡                 | interrupted",
         "⚪️ focus           | asdf",
         "",
         "These are the unmatched expected lines: ",
         "",
-        "🔴 focus           | need to match",
-        "🔴 focus           | without being",
+        "🔴 focus           | need␠to␠match",
+        "🔴 focus           | without␠being",
         "🔴 focus           | interrupted",
     ]
     assert not audit.is_ok()
@@ -316,13 +318,13 @@ There is no first line
     )
     assert list(audit.report()) == [
         *GENERIC_HEADER,
-        "🟡                 | Not the first line",
-        "🟡                 | There is no first line",
+        "🟡                 | Not␠the␠first␠line",
+        "🟡                 | There␠is␠no␠first␠line",
         "",
         "These are the unmatched expected lines: ",
         "",
-        "🔴 focus           | First line",
-        "🔴 focus           | Second line",
+        "🔴 focus           | First␠line",
+        "🔴 focus           | Second␠line",
     ]
     assert not audit.is_ok()
 

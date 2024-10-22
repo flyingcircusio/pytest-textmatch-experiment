@@ -229,7 +229,10 @@ class Audit:
         yield ""
         for line in self.content:
             yield format_line_report(
-                line.status, line.status.symbol, line.status_cause, line.data
+                line.status,
+                line.status.symbol,
+                line.status_cause,
+                tab_replace(line.data),
             )
         if self.unmatched_expectations:
             yield ""

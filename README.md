@@ -401,6 +401,9 @@ $ hatch run test
         -> strip whitespace at beginning and end
         -> fold multiple spaces into single spaces (makes it harder to diagnose things)
 
+        -> make tab replacement and format with control pictures optional.
+        -> also, tab replacement only happens on the input line, not the test line because due to `...` we can't know where the tab will land
+
 * [ ] proper release process with tagging, version updates, etc.
 
 * [ ] Get coverage working correctly (https://pytest-cov.readthedocs.io/en/latest/plugins.html doesnt seem to help ...)

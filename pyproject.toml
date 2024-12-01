@@ -36,9 +36,9 @@ dependencies = [
   "pytest>=6",
 ]
 [project.urls]
-Documentation = "https://github.com/unknown/pytest-patterns#readme"
-Issues = "https://github.com/unknown/pytest-patterns/issues"
-Source = "https://github.com/unknown/pytest-patterns"
+Documentation = "https://github.com/flyingcircusio/pytest-patterns#readme"
+Issues = "https://github.com/flyingcircusio/pytest-patterns/issues"
+Source = "https://github.com/flyingcircusio/pytest-patterns"
 [project.entry-points.pytest11]
 myproject = "pytest_patterns.plugin"
 
